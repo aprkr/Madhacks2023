@@ -1,6 +1,7 @@
 require('dotenv').config()
 var express = require('express');
 var bodyParser = require('body-parser')
+var { MongoClient } = require('mongodb');
 var app = express();
 var path = require("path")
 app.use(express.static(__dirname));
@@ -13,8 +14,83 @@ app.post('/sms', (req, res) => {
     res.sendFile(path.join(__dirname,'./index.html'));
     res.send
 })
+app.on('listening', async function () {
+
+    try{
+
+        await client.connect();
+        //await listDatabases(client)
+        /*await createMember(client, {
+            name: "Heff",
+            phone_no: 6080000000,
+            meds: [{med_name:"advil", quantity: 3, morning: 0, noon:0, evening:0, color: "red", for: "cold"},{med_name:"percocet", quantity: 2, frequency: 1, color: "white", for: "pain-relief"}]
+
+        })*/
+        //await findMember(client, "Jeff");
+        //await removeMember(client, "Jeff");
+    
+    } catch (e){
+        console.error(e)
+    } finally {
+        await client.close();
+    }
+
+    
+});
+const uri = 'mongodb+srv://rbrar:mdb123@cluster0.2r7ytsu.mongodb.net/test'
+const client = new MongoClient(uri);
 
 
+async function listDatabases(client) {
+    const databasesList = await client.db().admin().listDatabases();
+
+    console.log("Databases:")
+    databasesList.databases.forEach(db => {
+        console.log(`- ${db.name}`);
+    });
+}
+async function createMember(client, newMem) {
+    const result = await client.db("medbay").collection("dependents").insertOne(newMem);
+
+    console.log(`New member created with the following id: ${result.insertedId}`);
+    
+}
+async function findMember(client, phno) {
+    const result = await client.db("medbay").collection("dependents").findOne({phone_no: phno});
+    return result;
+}
+
+
+async function removeMember(client, nameMem) {
+    const result = await client.db("medbay").collection("dependents").deleteOne({name: nameMem});
+    console.log(`${result.deletedCount} member(s) named ${nameMem} were removed`);
+    
+}
+
+app.post('/form', async (req, res) => {
+    var pname = req.body.name
+    var phno = req.body.phno
+    var medname = req.body.medname
+    var sdate = req.body.sdate
+    var quan = req.body.quan
+
+    await createMember(client, {
+       name: pname,
+       phone_no: phno,
+       meds: [{med_name:medname, start_date: sdate, quantity: quan}]
+
+   })
+
+   res.send("New Member Added! <form action='./index.html'><input type='submit' value='Go Back'/></form>")
+})
+app.post('/lookup', async (req, res) => {
+    var pname = req.body.phno
+
+    var lookup = await findMember(client, pname);
+    console.log(lookup);
+
+   res.send("New Member Added! <form action='./index.html'><input type='submit' value='Go Back'/></form>")
+})
 
 const twilio = require('twilio')(
     process.env.TWILIO_ACCOUNT_SID,
@@ -68,3 +144,5 @@ function checkVerify(serviceSID, verifySID, number, code) {
 // setTimeout(() => {
 //   checkVerify(verifyServiceSID, currVerificationSID, number, '836125')
 // }, 2000);
+
+
