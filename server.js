@@ -61,6 +61,13 @@ async function findMember(client,memname) {
     return result;
 }
 
+async function findDay(client) {
+    const result = await client.db("medbay").collection("dependents").find();
+
+    console.log(result);
+
+    return result;
+}
 
 async function removeMember(client, nameMem) {
     const result = await client.db("medbay").collection("dependents").deleteOne({name: nameMem});
@@ -99,6 +106,7 @@ app.post('/look_up', async (req, res) => {
     
     
 })
+
 
 const twilio = require('twilio')(
     process.env.TWILIO_ACCOUNT_SID,

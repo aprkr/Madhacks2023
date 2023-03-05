@@ -2,23 +2,94 @@
 monthLabel = document.getElementById('monthName');
 
 	function nextMonth() {
-		nav++;
+			nav++;
+			currentSelectedDay = -1
+
 			loadCal();
 		}
 		function prevMonth() {
 			nav--;
+			currentSelectedDay = -1
 			loadCal();
+
 		}
+
+		let allReminders = []
+		for(let i = 0; i < 31; i++) {
+			allReminders.push([]);
+		}
+
 		const dt = new Date(); //date object
 		const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 		let nav = 0
+		let selectedDate = document.getElementById("leftCol");
+
+
+		function saveInput() {
+			console.log('here');
+			let medname = document.getElementById('medname');
+			let name = document.getElementById('name');
+
+			let sdate = document.getElementById('sdate');
+			let edate = document.getElementById('edate');
+			let mor = document.getElementById('mor');
+			let noon = document.getElementById('noon');
+			let eve = document.getElementById('eve');
+			let quan = document.getElementById('quan');
+			let col = document.getElementById('col');
+			let mfor = document.getElementById('mfor');
+
+			var sdateDate = new Date(sdate.value);
+			var edateDate = new Date(edate.value);
+
+
+			console.log(mor.value)
+			console.log(eve.value)
+
+
+			for(let i = sdateDate.getDate() + 1; i <= edateDate.getDate() + 1; i++) {
+				if(mor.value == "true")
+					allReminders[i].push("• " + name.value + " needs to take " + quan.value + " " + medname.value + " in the morning\n");
+				if(eve.value == "true")
+					allReminders[i].push("• " + name.value + " needs to take " + quan.value + " " + medname.value + " in the evening\n");
+			}
+
+			console.log(allReminders)
+			updateLeftCol(currentSelectedDay, month+1, year);
+
+		}
+
+		function updateLeftCol(day, month, year) {
+			//alert(month + "/" + day + "/" + year);
+			selectedDate.innerHTML = "Reminders for " + (month+nav) + "/" + day + "/" + year + ":\n";
+			for(let i = 0; i < allReminders[day].length; i++) {
+				breaker = document.createElement('br'); //create div for every day
+				selectedDate.appendChild(breaker);
+				selectedDate.innerHTML += allReminders[day][i];
+				
+
+			}
+			currentSelectedDay = day 
+
+
+
+			loadCal()
+
+
+		}
+
+
+			const day = dt.getDate();
+			let currentSelectedDay = day
+
+			const month = dt.getMonth();
+			const year = dt.getFullYear();
+
 		function loadCal() {
 			dt.setMonth(new Date().getMonth() + nav); //current month + nav to set month of date
 				
-			const day = dt.getDate();
-			const month = dt.getMonth();
-			const year = dt.getFullYear();
-			//console.log(day, month, year);
+			
+			console.log(month, day, year);
 			const firstDayOfMonth = new Date(year, month, 1);
 			const daysInMonth = new Date(year, month+1, 0).getDate(); //0 means last day of prev month
 
@@ -89,19 +160,28 @@ monthLabel = document.getElementById('monthName');
 					grid.appendChild(daySquare);
 				}
 				for(let i = 1; i <= daysInMonth; i++) {
+
+
+
 					daySquare = document.createElement('button'); //create div for every day
 					daySquare.innerHTML = "" + i
 					if(i == day && nav ==0)
 						daySquare.classList.add('current_day');
-					console.log(day)
-					console.log(month)
+					if(i == currentSelectedDay)
+						daySquare.classList.add('current_selected_day');
+
+					//console.log(day)
+					//console.log(month)
 
 					daySquare.classList.add('calendar_button');
+					daySquare.addEventListener('click', () => updateLeftCol(i, month+1, year));
 
 					grid.appendChild(daySquare);
 				}
 			}
 
+
 			loadCal()
+			updateLeftCol(day, month+1, year);
 
 
