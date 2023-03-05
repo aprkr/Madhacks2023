@@ -60,6 +60,13 @@ async function findMember(client, phno) {
     return result;
 }
 
+async function findDay(client) {
+    const result = await client.db("medbay").collection("dependents").find();
+
+    console.log(result);
+
+    return result;
+}
 
 async function removeMember(client, nameMem) {
     const result = await client.db("medbay").collection("dependents").deleteOne({name: nameMem});
@@ -87,13 +94,10 @@ app.post('/form', async (req, res) => {
    res.send("New Member Added! <form action='./index.html'><input type='submit' value='Go Back'/></form>")
 })
 app.post('/lookup', async (req, res) => {
-    var pname = req.body.phno
-
-    var lookup = await findMember(client, pname);
-    console.log(lookup);
-
+    var lookup = await findDay(client);
    res.send("New Member Added! <form action='./index.html'><input type='submit' value='Go Back'/></form>")
 })
+
 
 const twilio = require('twilio')(
     process.env.TWILIO_ACCOUNT_SID,

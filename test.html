@@ -38,6 +38,10 @@
 			<button onclick='nextMonth()'>Next</button>
 
 			<div class="grid-container" id="grid-container"></div>
+
+			<form action = "" method="POST" id="lookupForm">
+				<button name = "checkReminders" id="lookupButton" value=currentSelectedDay>Lookup</button>
+			</form>
 		</div>
 		
 		<div class="column" float="right">Add New Alert:
@@ -96,10 +100,12 @@
                 </div>
             </div>
             <button type="reset">Reset</button>
-            <button type="submit">Submit</button>
+            <button onclick="saveInput()" type="submit">Submit</button>
         </form>
     </body>
 		</div>
+
+
    
 	
 
