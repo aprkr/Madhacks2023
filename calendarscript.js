@@ -22,11 +22,14 @@ monthLabel = document.getElementById('monthName');
 		const dt = new Date(); //date object
 		const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 		let nav = 0
+		let selectedDate = document.getElementById("leftCol");
 
 
 		function saveInput() {
 			console.log('here');
 			let medname = document.getElementById('medname');
+			let name = document.getElementById('name');
+
 			let sdate = document.getElementById('sdate');
 			let edate = document.getElementById('edate');
 			let mor = document.getElementById('mor');
@@ -36,14 +39,40 @@ monthLabel = document.getElementById('monthName');
 			let col = document.getElementById('col');
 			let mfor = document.getElementById('mfor');
 
+			var sdateDate = new Date(sdate.value);
+			var edateDate = new Date(edate.value);
+
+
+			console.log(mor.value)
+			console.log(eve.value)
+
+
+			for(let i = sdateDate.getDate() + 1; i <= edateDate.getDate() + 1; i++) {
+				if(mor.value == "true")
+					allReminders[i].push("• " + name.value + " needs to take " + quan.value + " " + medname.value + " in the morning\n");
+				if(eve.value == "true")
+					allReminders[i].push("• " + name.value + " needs to take " + quan.value + " " + medname.value + " in the evening\n");
+			}
+
+			console.log(allReminders)
+			updateLeftCol(currentSelectedDay, month+1, year);
 
 		}
 
-		let selectedDate = document.getElementById("leftCol");
 		function updateLeftCol(day, month, year) {
 			//alert(month + "/" + day + "/" + year);
-			selectedDate.innerHTML = "Reminders for " + (month+nav) + "/" + day + "/" + year + ":";
-			currentSelectedDay = day
+			selectedDate.innerHTML = "Reminders for " + (month+nav) + "/" + day + "/" + year + ":\n";
+			for(let i = 0; i < allReminders[day].length; i++) {
+				breaker = document.createElement('br'); //create div for every day
+				selectedDate.appendChild(breaker);
+				selectedDate.innerHTML += allReminders[day][i];
+				
+
+			}
+			currentSelectedDay = day 
+
+
+
 			loadCal()
 
 
