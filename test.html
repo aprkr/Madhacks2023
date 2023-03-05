@@ -3,8 +3,6 @@
 <!DOCTYPE html>
 
 
-<! base calendar code from https://www.youtube.com/watch?v=Q5Xen_Y7lUk&t=0s >
-
 <html>
 <head>
 	<meta charset="utf-8">
@@ -30,12 +28,11 @@
 	<div class = "row">
 		<div class="column">columnA</div>
 
-		<div class="column">
+		<div class="center">
 
-			<<script type="text/javascript "src="calendarscript.js"></script>
 
-			<label id="monthName">March 2023
-			</label>
+			<div id="monthName">March 2023
+			</div>
 
 			<button onclick='prevMonth()'>Prev</button>
 			<button onclick='nextMonth()'>Next</button>
@@ -43,15 +40,20 @@
 			<div class="grid-container" id="grid-container"></div>
 		</div>
 		
-		<div class="column">columnC</div>
+		<div class="column" float="right">columnC</div>
    
-	<div id="content">
-		<img src="cornerlogosmaller.png" class="ribbon" alt="" />
-	</div>
+	
 
 	<div id="banner">
 		<h1>PillPal</h1>
 	</div>
+
+	<div id="content">
+		<img src="cornerlogosmaller.png" class="ribbon" alt="" />
+	</div>
+
+	<script type="text/javascript "src="calendarscript.js"></script>
+
 
 </body>
 </html>

@@ -39,14 +39,57 @@ monthLabel = document.getElementById('monthName');
 				let grid = document.getElementById('grid-container');
 				grid.innerHTML = '';
 
+				let daySquare = document.createElement('button'); //create div for every day
+					daySquare.innerHTML = "Su"
+					daySquare.classList.add('calendar_button');
+					daySquare.classList.add('button_day');
+
+					grid.appendChild(daySquare);
+			 	daySquare = document.createElement('button'); //create div for every day
+					daySquare.innerHTML = "M"
+					daySquare.classList.add('calendar_button');
+										daySquare.classList.add('button_day');
+
+					grid.appendChild(daySquare);
+				daySquare = document.createElement('button'); //create div for every day
+					daySquare.innerHTML = "T"
+					daySquare.classList.add('calendar_button');
+										daySquare.classList.add('button_day');
+
+					grid.appendChild(daySquare);
+				daySquare = document.createElement('button'); //create div for every day
+					daySquare.innerHTML = "W"
+					daySquare.classList.add('calendar_button');
+										daySquare.classList.add('button_day');
+
+					grid.appendChild(daySquare);
+				daySquare = document.createElement('button'); //create div for every day
+					daySquare.innerHTML = "Th"
+					daySquare.classList.add('calendar_button');
+										daySquare.classList.add('button_day');
+
+					grid.appendChild(daySquare);
+				daySquare = document.createElement('button'); //create div for every day
+					daySquare.innerHTML = "F"
+					daySquare.classList.add('calendar_button');
+										daySquare.classList.add('button_day');
+
+					grid.appendChild(daySquare);
+				daySquare = document.createElement('button'); //create div for every day
+					daySquare.innerHTML = "Sa"
+					daySquare.classList.add('calendar_button');
+										daySquare.classList.add('button_day');
+
+					grid.appendChild(daySquare);
 				for(let i = 0; i < paddingDays; i++) {
-					const daySquare = document.createElement('div'); //create div for every day
+					daySquare = document.createElement('div'); //create div for every day
 					daySquare.innerHTML = ""
 					daySquare.classList.add('calendar_button');
+
 					grid.appendChild(daySquare);
 				}
 				for(let i = 1; i <= daysInMonth; i++) {
-					const daySquare = document.createElement('button'); //create div for every day
+					daySquare = document.createElement('button'); //create div for every day
 					daySquare.innerHTML = "" + i
 					if(i == day && nav ==0)
 						daySquare.classList.add('current_day');
