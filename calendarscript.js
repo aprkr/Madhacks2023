@@ -14,7 +14,7 @@ monthLabel = document.getElementById('monthName');
 
 		}
 
-		let allReminders = []
+		let allReminders = localStorage.getItem('allReminders') ? JSON.parse(localStorage.getItem('allReminders')) : [];
 		for(let i = 0; i < 31; i++) {
 			allReminders.push([]);
 		}
@@ -48,14 +48,14 @@ monthLabel = document.getElementById('monthName');
 
 
 			for(let i = sdateDate.getDate() + 1; i <= edateDate.getDate() + 1; i++) {
-				if(mor.value == "true")
 					allReminders[i].push("• " + name.value + " needs to take " + quan.value + " " + medname.value + " in the morning\n");
-				if(eve.value == "true")
 					allReminders[i].push("• " + name.value + " needs to take " + quan.value + " " + medname.value + " in the evening\n");
 			}
 
 			console.log(allReminders)
 			updateLeftCol(currentSelectedDay, month+1, year);
+
+			localStorage.setItem('allReminders', JSON.stringify(allReminders));
 
 		}
 
