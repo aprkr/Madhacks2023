@@ -72,6 +72,9 @@ app.post('/form', async (req, res) => {
     var phno = req.body.phno
     var medname = req.body.medname
     var sdate = req.body.sdate
+    var edate = req.body.edate
+
+    console.log("sdate: " + sdate ", edate: " + edate);
     var quan = req.body.quan
 
     await createMember(client, {
