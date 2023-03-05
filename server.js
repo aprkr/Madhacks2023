@@ -55,8 +55,9 @@ async function createMember(client, newMem) {
     console.log(`New member created with the following id: ${result.insertedId}`);
     
 }
-async function findMember(client, phno) {
-    const result = await client.db("medbay").collection("dependents").findOne({phone_no: phno});
+async function findMember(client,memname) {
+    // console.log(client.db("medbay").collection("dependents").find( { id: {$type: 'string'} }))
+    const result = await client.db("medbay").collection("dependents").findOne({name: memname});
     return result;
 }
 
@@ -74,7 +75,7 @@ app.post('/form', async (req, res) => {
     var sdate = req.body.sdate
     var edate = req.body.edate
 
-    console.log("sdate: " + sdate ", edate: " + edate);
+    console.log("sdate: " + sdate + ", edate: " + edate);
     var quan = req.body.quan
 
     await createMember(client, {
@@ -86,13 +87,17 @@ app.post('/form', async (req, res) => {
 
    res.send("New Member Added! <form action='./index.html'><input type='submit' value='Go Back'/></form>")
 })
-app.post('/lookup', async (req, res) => {
-    var pname = req.body.phno
+app.post('/look_up', async (req, res) => {
+    var bname = req.body.pname
 
-    var lookup = await findMember(client, pname);
-    console.log(lookup);
-
-   res.send("New Member Added! <form action='./index.html'><input type='submit' value='Go Back'/></form>")
+    var lookup = await findMember(client, bname);
+      sendTwilioMessage("Take Medication", lookup.phone_no)
+      // console.log(lookup);
+      // console.log(lookup.phone_no)
+  
+     res.send(" Message Sent! <form action='./index.html'><input type='submit' value='Go Back'/></form>")
+    
+    
 })
 
 const twilio = require('twilio')(
