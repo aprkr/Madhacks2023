@@ -9,123 +9,49 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Calendar Demo JS</title>
-
+	<title>PillPal</title>
+	<link rel="icon" type="image/x-icon" href="./favicon.ico">
 	<link rel="stylesheet" href="style.css">
 
 </head>
 <body>
 
+	<style>
+		#content {
+			position: relative;
+			z-index: 2;
+		}
+		#content img {
+			position: fixed;
+			top: 5px;
+			left: 10px;
+		}
+	</style>
+	<div class = "row">
+		<div class="column">columnA</div>
 
+		<div class="column">
 
-	<div id="container">
-		<div id="header">
-			<div id="monthDisplay"></div>
+			<<script type="text/javascript "src="calendarscript.js"></script>
 
-			<div>
-				<button id="backButton">Back</button>
-				<button id="nextButton">Next</button>
+			<label id="monthName">March 2023
+			</label>
 
-			</div>
+			<button onclick='prevMonth()'>Prev</button>
+			<button onclick='nextMonth()'>Next</button>
+
+			<div class="grid-container" id="grid-container"></div>
 		</div>
-
-
-		<div id="weekdays">
-			<div>Sunday</div>
-			<div>Monday</div>
-			<div>Tuesday</div>
-			<div>Wednesday</div>
-			<div>Thursday</div>
-			<div>Friday</div>
-			<div>Saturday</div>
-		</div>
-
-
-		<div id="calendar"></div>
+		
+		<div class="column">columnC</div>
+   
+	<div id="content">
+		<img src="cornerlogosmaller.png" class="ribbon" alt="" />
 	</div>
 
-
-	<div id = "newEventModal">
-		<h2>New Event</h2>
-
-		<input id = "eventTitleInput" placeholder = "Event Title"></input>
-		<button id="saveButton">Save</button>
-
-		<button id="cancelButton">Cancel</button>
-
-
-		<div>
-			<form>
-			  <select id="setTimeHours">
-			    <option value="1" selected = "selected">1</option>
-			    <option value="2">2</option>
-			    <option value="3">2</option>
-			    <option value="4">4</option>
-			    <option value="5">5</option>
-			    <option value="6">6</option>
-			    <option value="7">7</option>
-			    <option value="8">8</option>
-			    <option value="9">9</option>
-			    <option value="10">10</option>
-			    <option value="11">11</option>
-			    <option value="12">12</option>
-			  </select>
-			</form>
-		</div>
-
-		<div>
-			<form>
-			  <select id="setTimeMinutes">
-			    <option value="00" selected = "selected">00</option>
-			    <option value="05">05</option>
-			    <option value="10">10</option>
-			    <option value="15">15</option>
-			    <option value="20">20</option>			    
-			    <option value="25">25</option>
-			    <option value="30">30</option>
-				<option value="35">35</option>
-			    <option value="40">40</option>
-			    <option value="45">45</option>
-			    <option value="50">50</option>			    
-			    <option value="55">55</option>
-			  </select>
-			</form>
-
-		</div>
-
-		<div>
-			<form>
-			  <select id="setTimeAMPM">
-			    <option value="AM" selected = "selected">AM</option>
-			    <option value="PM">PM</option>
-			  </select>
-			</form>
-
-		</div>
-
-
-		</div>
+	<div id="banner">
+		<h1>PillPal</h1>
 	</div>
-
-	<div id = "modalBackDrop"></div>
-
-
-	<div id= 'deleteEventModal'>
-	<h2>Event</h2>
-
-		<p id = "eventText"></p>
-		<button id="deleteButton">Delete</button>
-
-		<button id="closeButton">Cancel</button>
-
-	</div>
-
-
-
-
-
-
-	<script src="./script.js"></script>
 
 </body>
 </html>
